@@ -24,14 +24,14 @@ const registerNewUser = async (req, res) => {
   }
 };
 
-const loginUser = async (req, res) => {
+const logInUser = async (req, res) => {
   const { username, password } = req.body;
 
   const user = await verifyUser(username.toLowerCase(), password);
   if (user) {
     const userId = user._id.toString();
     const token = jwt.sign({ userId, username: user.username }, JWT_SECRET, {
-      expiresIn: "1d",
+      expiresIn: "1day",
       subject: userId,
     });
     res.json({ user, token });
@@ -40,4 +40,4 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { requireLogin, registerNewUser, loginUser };
+module.exports = { requireLogin, registerNewUser, logInUser };
