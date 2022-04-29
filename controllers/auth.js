@@ -1,14 +1,14 @@
 const jwt = require("jsonwebtoken");
-const { verifyUser, createUser } = require("../models/user");
+const { verifyUser, createUser, getUserByUsername } = require("../models/user");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const requireLogin = (req, res, next) => {
-  req.user ? next() : res.status(401).json({ message: "Unauthorized" });
+  req.user ? next() : res.status(401).json({ error: "Unauthorized" });
 };
 
 const registerNewUser = async (req, res) => {
   const { username, password } = req.body;
-
+  console.log("USER", username, password);
   if (!(username && password)) {
     res.json({ error: "Invalid data. Username and password is required." });
   } else {
@@ -17,9 +17,12 @@ const registerNewUser = async (req, res) => {
         .status(400)
         .json({ error: "User already exists, username must be unique" });
     } else {
-      const user = await createUser(username.toLowerCase(), password);
+      const user = await createUser({
+        username: username.toLowerCase(),
+        password,
+      });
 
-      res.json({ user: { username: user.username } });
+      res.json({ username: user.username });
     }
   }
 };

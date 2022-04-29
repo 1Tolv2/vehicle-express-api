@@ -14,8 +14,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("User", userSchema);
-
 userSchema.pre("save", async function (next) {
   if (this.modifiedPaths().includes("password")) {
     const hash = await bcrypt.hash(this.password, 10);
@@ -31,8 +29,10 @@ userSchema.statics.login = async function (username, password) {
     : null;
 };
 
+const User = mongoose.model("User", userSchema);
+
 const createUser = async (newUser) => {
-  const user = new User({ newUser });
+  const user = new User(newUser);
   await user.save();
   return user;
 };
@@ -41,11 +41,14 @@ const createUser = async (newUser) => {
 
 const verifyUser = async (username, password) => {
   const user = await User.login(username, password);
-  const removedPassword = user.filter(
-    (item) => !item.hasOwnProperty("password")
-  );
-  console.log("IS PASSWORD REMOVED:", removedPassword);
-  return user;
+  return {
+    _id: user._id,
+    username: user.username,
+    email: user.email,
+    name: user.name,
+    settings: user.settings,
+    vehicles: user.vehicles,
+  };
 };
 
 const getUserById = (id) => {
@@ -56,10 +59,15 @@ const getAllUsers = () => {
   return User.find();
 };
 
+const getUserByUsername = (username) => {
+  return User.findOne({ username });
+};
+
 module.exports = {
   createUser,
   verifyUser,
   // updateUser,
   getUserById,
   getAllUsers,
+  getUserByUsername,
 };

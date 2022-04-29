@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const app = express();
@@ -11,12 +12,12 @@ app.use(express.json());
 
 app.use(async (req, res, next) => {
   const authHeader = req.header("Authorization");
-  const bearer = authHeader.split(" ");
 
-  if (bearer[0] === "Bearer") {
-    const token = bearer[1];
+  if (authHeader && authHeader.split(" ")[0] === "Bearer") {
+    const token = authHeader.split(" ")[1];
     try {
       req.user = jwt.verify(token, process.env.JWT_SECRET);
+      console.log("USER", req.user);
     } catch (error) {
       return error.message === "jwt expired"
         ? res.status(401).json({ error: "Token expired" })
