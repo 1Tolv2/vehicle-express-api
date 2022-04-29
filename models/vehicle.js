@@ -18,6 +18,7 @@ const LiquidSchema = new mongoose.Schema({
 });
 
 const VehicleSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   registrationNumber: { type: String },
   vehicleType: { type: Number, required: true }, // 1. Car, 2. Motorcycle
   mileage: Number,
@@ -93,8 +94,8 @@ const createVehicle = async (newVehicle) => {
 const removeVehicle = async (id) => {
   return Vehicle.deleteOne({ _id: mongoose.Types.ObjectId(id) });
 };
-const getAllVehicles = async () => {
-  return Vehicle.find();
+const getAllVehiclesByUser = async (id) => {
+  return Vehicle.find({ user: mongoose.Types.ObjectId(id) });
 };
 const getVehicleById = async (id) => {
   return Vehicle.findById(id);
@@ -104,6 +105,6 @@ module.exports = {
   createVehicle,
   //   updateVehicle,
   removeVehicle,
-  getAllVehicles,
+  getAllVehiclesByUser,
   getVehicleById,
 };
