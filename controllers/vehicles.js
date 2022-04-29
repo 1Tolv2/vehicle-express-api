@@ -3,6 +3,7 @@ const {
   removeVehicle,
   getAllVehiclesByUser,
   getVehicleById,
+  updateVehicle,
 } = require("../models/vehicle");
 
 const handleNewVehicle = async (req, res) => {
@@ -28,9 +29,18 @@ const getVehicle = async (req, res) => {
   res.status(200).json({ vehicle });
 };
 
+const editVehicle = async (req, res) => {
+  const id = req.user.userId;
+  const body = req.body;
+
+  const vehicle = await updateVehicle(id, body);
+  res.status(200).json({ message: "Success" });
+};
+
 module.exports = {
   handleNewVehicle,
   deleteVehicle,
   getUsersVehicles,
   getVehicle,
+  editVehicle,
 };

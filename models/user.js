@@ -37,8 +37,6 @@ const createUser = async (newUser) => {
   return user;
 };
 
-// const updateUser = () => {};
-
 const verifyUser = async (username, password) => {
   const user = await User.login(username, password);
   return {
@@ -49,6 +47,10 @@ const verifyUser = async (username, password) => {
     settings: user.settings,
     vehicles: user.vehicles,
   };
+};
+
+const updateUser = (id, body) => {
+  return User.findByIdAndUpdate(id, body, { new: true }).exec();
 };
 
 const getUserById = (id) => {
@@ -66,7 +68,7 @@ const getUserByUsername = (username) => {
 module.exports = {
   createUser,
   verifyUser,
-  // updateUser,
+  updateUser,
   getUserById,
   getAllUsers,
   getUserByUsername,

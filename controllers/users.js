@@ -1,4 +1,4 @@
-const { getUserById } = require("../models/user");
+const { getUserById, updateUser } = require("../models/user");
 
 const getCurrentUser = async (req, res) => {
   const id = req.user.userId;
@@ -6,4 +6,12 @@ const getCurrentUser = async (req, res) => {
   res.status(200).json({ user });
 };
 
-module.exports = { getCurrentUser };
+const editUser = async (req, res) => {
+  const id = req.user.userId;
+  const body = req.body;
+
+  const user = await updateUser(id, body);
+  res.status(200).json({ message: "Success" });
+};
+
+module.exports = { getCurrentUser, editUser };
