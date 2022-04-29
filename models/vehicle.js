@@ -1,125 +1,84 @@
 const mongoose = require("mongoose");
 
-const VehicleSchema = new mongoose.Schema({
-  username: { type: String, required: true },
-  name: { type: String, required: true },
-  password: { type: String, required: true },
-  email: { type: String, required: true },
-  vehicles: [{ type: mongoose.Schema.Types.ObjectId, ref: "Vehicle" }],
+const TireSchema = new mongoose.Schema({
+  bought: Date,
+  daysUsed: Number,
+  tireType: String,
+  make: String,
+  model: String,
+  tirePressure: Number,
 });
 
-/*
-registrationNumber:
-brand: yamaha
-model: XJ6
-vehicleType: motorcycle, car
-mileage: in km or miles
-color: { 
-    primaryColor: white, 
-    secondaryColor: black 
-    }
-inTrafic: true
-modelYear: 2014
-insurance: {}
-taxes: {}
-maintenanceSchedule: {}
-specifications: {
-    inpection: { 
-        lastInspection: 2022-04-25,
-        nextInspection: 2024-04-25,
-        inspectionInterval: 24 months,
-        }
+const LiquidSchema = new mongoose.Schema({
+  brand: String,
+  model: String,
+  viscocity: String,
+  amount: Number, // liters/gallons
+  lastChanged: Date,
+});
+
+const VehicleSchema = new mongoose.Schema({
+  registrationNumber: { type: String },
+  vehicleType: { type: Number, required: true }, // 1. Car, 2. Motorcycle
+  mileage: Number,
+  inTrafic: Boolean,
+  brand: { type: String, required: true },
+  model: { type: String },
+  modelYear: Number,
+  color: {
+    primaryColor: String,
+    secondaryColor: String,
+  },
+  specifications: {
+    insurance: {
+      date: Date,
+      company: String,
+      type: String, // trafic, half, whole
+    },
+    inpection: {
+      lastInspection: Date,
+      nextInspection: Date,
+      inspectionInterval: Number,
+    },
     tires: {
-        inUse: 0
-        tireSet: [{
-            tireId: 0,
-            front: {
-                bought: ,
-                daysUsed: ,
-                tireType: "205/55/15",
-                make: "Dunlop",
-                model: roadsmart,
-                tirePressure: 2.3
-                },
-            rear: {
-                bought:
-                daysUsed: 
-                tireType: "205/55/15",
-                bought:
-                daysUsed: 
-                tireType: "205/55/15",
-                make: "Dunlop",
-                model: roadsmart,
-                tirePressure: 2.5
-                },
-            }]
-        }
+      inUse: Number,
+      tireSet: [
+        {
+          tireSetId: { type: Number, unique: true },
+          tire: [TireSchema],
+        },
+      ],
+    },
     sparkplugs: {},
     battery: {},
-
     liquids: {
-        breakFluid: { 
-            brand: , 
-            model: , 
-            amount: , 
-            lastChanged: , 
-        },
-        engineOil: { 
-            brand: , 
-            model: , 
-            viscocity: , 
-            amount: , 
-            lastChanged: , 
-        },
-        gearOil: { 
-            brand: , 
-            model: , 
-            viscocity: , 
-            amount: , 
-            lastChanged: , 
-        },
-        powerSteeringFluid: { 
-            brand: , 
-            model: , 
-            amount: , 
-            lastChanged:
-        },
-        coolant: { 
-            brand: , 
-            model: , 
-            amount: , 
-            lastChanged: 
-        },
-        forkOil: { 
-            brand: , 
-            model: , 
-            viscocity: , 
-            amount: , 
-            lastChanged: , 
-        },
-    }
-}
-
-modelSpecification: {
-    weight: 210kg,
-    engine: {
-        engineSize: 599cc, 
-        engineType: 16v inline four,
-        fuelType: gasoline, 
-        fuelCapacity: 19L,
-        power: 57kW (76hp)
-    }
-    gearBox: {
-        type: manual,
-        gears: 6
-    }
-    wheelDimentions: {
-        front: 120/70ZR17M/C (58W), 
-        rear: 160/60ZR17M/C (69W)
-    }
-}
-
-*/
+      breakFluid: { LiquidSchema },
+      engineOil: { LiquidSchema },
+      gearOil: { LiquidSchema },
+      powerSteeringFluid: { LiquidSchema },
+      coolant: { LiquidSchema },
+      forkOil: { LiquidSchema },
+    },
+    modelSpecification: {
+      weight: Number, // kg/pounds
+      engine: {
+        engineSize: Number, // cc
+        engineType: String,
+        fuelType: String, // gasoline, diesel, electric, gas, ethanol
+        fuelCapacity: Number, // liters/gallons
+        power: Number, // kW
+        horsePower: Number, // hp
+      },
+      gearBox: {
+        type: String, // manual, automatic
+        gears: Number,
+      },
+      wheelDimentions: {
+        tire: [{ String }],
+      },
+    },
+  },
+});
 
 const Vehicle = mongoose.model("Vehicle", VehicleSchema);
 
