@@ -82,4 +82,28 @@ const VehicleSchema = new mongoose.Schema({
 
 const Vehicle = mongoose.model("Vehicle", VehicleSchema);
 
-module.exports;
+const createVehicle = async (newVehicle) => {
+  const vehicle = new vehicle({ newVehicle });
+  await vehicle.save();
+  return vehicle;
+};
+
+// const updateVehicle = async () => {};
+
+const removeVehicle = async (id) => {
+  return Vehicle.deleteOne({ _id: mongoose.Types.ObjectId(id) });
+};
+const getAllVehicles = async () => {
+  return Vehicle.find();
+};
+const getVehicleById = async (id) => {
+  return Vehicle.findById(id);
+};
+
+module.exports = {
+  createVehicle,
+  updateVehicle,
+  removeVehicle,
+  getAllVehicles,
+  getVehicleById,
+};
