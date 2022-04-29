@@ -7,8 +7,8 @@ const {
 
 const handleNewVehicle = async (req, res) => {
   const newVehicle = req.body;
-  const vehicle = await createVehicle(newVehicle);
-  res.status(201).json({ message: "success" });
+  const vehicle = await createVehicle({ ...newVehicle, user: req.user.userId });
+  res.status(201).json({ vehicle });
 };
 
 const deleteVehicle = async (req, res) => {

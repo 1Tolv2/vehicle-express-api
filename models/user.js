@@ -52,15 +52,15 @@ const verifyUser = async (username, password) => {
 };
 
 const getUserById = (id) => {
-  return User.findById(id);
+  return User.findById(id).select({ password: 0 }).exec();
 };
 
 const getAllUsers = () => {
-  return User.find();
+  return User.find().select({ password: 0 }).exec();
 };
 
 const getUserByUsername = (username) => {
-  return User.findOne({ username });
+  return User.findOne({ username }).select({ password: 0 }).exec();
 };
 
 module.exports = {

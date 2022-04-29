@@ -45,13 +45,17 @@ const VehicleSchema = new mongoose.Schema({
       inUse: Number,
       tireSet: [
         {
-          tireSetId: { type: Number, unique: true },
+          tireSetId: { type: Number },
           tire: [TireSchema],
         },
       ],
     },
-    sparkplugs: {},
-    battery: {},
+    sparkplugs: {
+      brand: String,
+      model: String,
+      lastChanged: Date,
+      lastSpaced: Date,
+    },
     liquids: {
       breakFluid: { LiquidSchema },
       engineOil: { LiquidSchema },
@@ -60,23 +64,23 @@ const VehicleSchema = new mongoose.Schema({
       coolant: { LiquidSchema },
       forkOil: { LiquidSchema },
     },
-    modelSpecification: {
-      weight: Number, // kg/pounds
-      engine: {
-        engineSize: Number, // cc
-        engineType: String,
-        fuelType: String, // gasoline, diesel, electric, gas, ethanol
-        fuelCapacity: Number, // liters/gallons
-        power: Number, // kW
-        horsePower: Number, // hp
-      },
-      gearBox: {
-        type: String, // manual, automatic
-        gears: Number,
-      },
-      wheelDimentions: {
-        tire: [{ String }],
-      },
+  },
+  modelSpecification: {
+    weight: Number, // kg/pounds
+    engine: {
+      engineSize: Number, // cc
+      engineType: String,
+      fuelType: String, // gasoline, diesel, electric, gas, ethanol
+      fuelCapacity: Number, // liters/gallons
+      power: Number, // kW
+      horsePower: Number, // hp
+    },
+    gearBox: {
+      type: { type: String, default: "" }, // manual, automatic
+      gears: Number,
+    },
+    wheelDimentions: {
+      tires: [{ String }],
     },
   },
 });
@@ -84,7 +88,13 @@ const VehicleSchema = new mongoose.Schema({
 const Vehicle = mongoose.model("Vehicle", VehicleSchema);
 
 const createVehicle = async (newVehicle) => {
-  const vehicle = new vehicle({ newVehicle });
+  console.log("NEW VEHICLE", newVehicle);
+  try {
+    var vehicle = new Vehicle(newVehicle);
+  } catch (e) {
+    console.log("ERROR", e);
+    return;
+  }
   await vehicle.save();
   return vehicle;
 };
