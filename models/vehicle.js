@@ -102,7 +102,7 @@ const getVehicleById = async (id) => {
 
 module.exports = {
   createVehicle,
-  updateVehicle,
+  //   updateVehicle,
   removeVehicle,
   getAllVehicles,
   getVehicleById,
