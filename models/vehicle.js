@@ -104,10 +104,10 @@ const updateVehicle = async (id, body) => {
 const removeVehicle = async (id) => {
   return Vehicle.deleteOne({ _id: mongoose.Types.ObjectId(id) });
 };
-const getAllVehiclesByUser = async (id) => {
+const findAllVehiclesByUser = async (id) => {
   return Vehicle.find({ user: mongoose.Types.ObjectId(id) });
 };
-const getVehicleById = async (id) => {
+const findVehicleById = async (id) => {
   return Vehicle.findById(id);
 };
 
@@ -115,6 +115,6 @@ module.exports = {
   createVehicle,
   updateVehicle,
   removeVehicle,
-  getAllVehiclesByUser,
-  getVehicleById,
+  findAllVehiclesByUser,
+  findVehicleById,
 };

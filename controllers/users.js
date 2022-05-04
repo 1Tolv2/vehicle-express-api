@@ -1,8 +1,8 @@
-const { getUserById, updateUser } = require("../models/user");
+const { findUserById, updateUser } = require("../models/user");
 
 const getCurrentUser = async (req, res) => {
   const id = req.user.userId;
-  const user = await getUserById(id);
+  const user = await findUserById(id);
   res.status(200).json({ user });
 };
 

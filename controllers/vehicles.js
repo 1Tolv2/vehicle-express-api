@@ -1,8 +1,8 @@
 const {
   createVehicle,
   removeVehicle,
-  getAllVehiclesByUser,
-  getVehicleById,
+  findAllVehiclesByUser,
+  findVehicleById,
   updateVehicle,
 } = require("../models/vehicle");
 
@@ -19,13 +19,13 @@ const deleteVehicle = async (req, res) => {
 };
 
 const getUsersVehicles = async (req, res) => {
-  const vehicles = await getAllVehiclesByUser();
+  const vehicles = await findAllVehiclesByUser();
   res.status(200).json({ vehicles });
 };
 
 const getVehicle = async (req, res) => {
   const id = req.params.id;
-  const vehicle = await getVehicleById(id);
+  const vehicle = await findVehicleById(id);
   res.status(200).json({ vehicle });
 };
 

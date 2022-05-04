@@ -53,15 +53,15 @@ const updateUser = (id, body) => {
   return User.findByIdAndUpdate(id, body, { new: true }).exec();
 };
 
-const getUserById = (id) => {
+const findUserById = (id) => {
   return User.findById(id).select({ password: 0 }).exec();
 };
 
-const getAllUsers = () => {
+const findAllUsers = () => {
   return User.find().select({ password: 0 }).exec();
 };
 
-const getUserByUsername = (username) => {
+const findUserByUsername = (username) => {
   return User.findOne({ username }).select({ password: 0 }).exec();
 };
 
@@ -69,7 +69,7 @@ module.exports = {
   createUser,
   verifyUser,
   updateUser,
-  getUserById,
-  getAllUsers,
-  getUserByUsername,
+  findUserById,
+  findAllUsers,
+  findUserByUsername,
 };
