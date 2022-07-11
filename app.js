@@ -17,7 +17,6 @@ app.use(async (req, res, next) => {
     const token = authHeader.split(" ")[1];
     try {
       req.user = jwt.verify(token, process.env.JWT_SECRET);
-      console.log("USER", req.user);
     } catch (error) {
       return error.message === "jwt expired"
         ? res.status(401).json({ error: "Token expired" })

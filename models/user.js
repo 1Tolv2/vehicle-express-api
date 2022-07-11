@@ -48,7 +48,7 @@ const verifyUser = async (username, password) => {
         settings: user.settings,
         vehicles: user.vehicles,
       }
-    : user;
+    : null;
 };
 
 const updateUser = (id, body) => {

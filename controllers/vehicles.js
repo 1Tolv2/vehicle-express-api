@@ -25,8 +25,8 @@ const handleDeletionOfVehicle = async (req, res) => {
 };
 
 const getUsersVehicles = async (req, res) => {
-  const vehicles = await findAllVehiclesByUser();
-  res.status(200).json({ vehicles });
+  const vehiclesList = await findAllVehiclesByUser(req.user.userId);
+  res.status(200).json({ vehiclesList });
 };
 
 const getVehicle = async (req, res) => {
