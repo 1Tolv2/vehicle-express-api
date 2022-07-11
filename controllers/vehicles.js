@@ -14,8 +14,14 @@ const handleNewVehicle = async (req, res) => {
 
 const handleDeletionOfVehicle = async (req, res) => {
   const id = req.params.id;
-  await deleteVehicle(id);
-  res.status(200).json({ message: "Vehicle successfully deleted" });
+  const vehicle = await deleteVehicle(id);
+  res
+    .status(200)
+    .json(
+      vehicle.deletedCount
+        ? { message: "Vehicle successfully deleted" }
+        : { error: "No vehicle found with the given id" }
+    );
 };
 
 const getUsersVehicles = async (req, res) => {
