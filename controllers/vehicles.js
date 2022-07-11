@@ -1,6 +1,6 @@
 const {
   createVehicle,
-  removeVehicle,
+  deleteVehicle,
   findAllVehiclesByUser,
   findVehicleById,
   updateVehicle,
@@ -12,10 +12,10 @@ const handleNewVehicle = async (req, res) => {
   res.status(201).json({ vehicle });
 };
 
-const deleteVehicle = async (req, res) => {
+const handleDeletionOfVehicle = async (req, res) => {
   const id = req.params.id;
-  await removeVehicle(id);
-  res.status(200).json({ message: "success" });
+  await deleteVehicle(id);
+  res.status(200).json({ message: "Vehicle successfully deleted" });
 };
 
 const getUsersVehicles = async (req, res) => {
@@ -39,7 +39,7 @@ const editVehicle = async (req, res) => {
 
 module.exports = {
   handleNewVehicle,
-  deleteVehicle,
+  handleDeletionOfVehicle,
   getUsersVehicles,
   getVehicle,
   editVehicle,

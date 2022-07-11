@@ -7,6 +7,6 @@ router.get("/", requireLogin, v.getUsersVehicles);
 router.post("/", requireLogin, v.handleNewVehicle);
 router.get("/:id", requireLogin, v.getVehicle);
 router.put("/:id", requireLogin, v.editVehicle);
-router.delete("/:id", requireLogin, v.deleteVehicle);
+router.delete("/:id", requireLogin, v.handleDeletionOfVehicle);
 
 module.exports = router;

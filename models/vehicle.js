@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const TireSchema = new mongoose.Schema({
-  bought: { type: Date, default: null },
+  purchased: { type: Date, default: null },
   daysUsed: { Number, default: 0 },
-  tireType: { type: String, default: "AllYearRound" }, // winter, summer, allYearRound
+  tireType: { type: String, default: "allYearRound" }, // winter, summer, allYearRound
   make: { type: String, default: null },
   model: { type: String, default: null },
   tirePressure: { Number, default: 0 },
@@ -101,7 +101,7 @@ const updateVehicle = async (id, body) => {
   return Vehicle.findByIdAndUpdate(id, body, { new: true }).exec();
 };
 
-const removeVehicle = async (id) => {
+const deleteVehicle = async (id) => {
   return Vehicle.deleteOne({ _id: mongoose.Types.ObjectId(id) });
 };
 const findAllVehiclesByUser = async (id) => {
@@ -114,7 +114,7 @@ const findVehicleById = async (id) => {
 module.exports = {
   createVehicle,
   updateVehicle,
-  removeVehicle,
+  deleteVehicle,
   findAllVehiclesByUser,
   findVehicleById,
 };
