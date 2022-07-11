@@ -97,8 +97,11 @@ const createVehicle = async (newVehicle) => {
   return vehicle;
 };
 
-const updateVehicle = async (id, body) => {
-  return Vehicle.findByIdAndUpdate(id, body, { new: true }).exec();
+const updateVehicle = async (userId, id, body) => {
+  const vehicle = await Vehicle.findByIdAndUpdate(id, body, {
+    new: true,
+  }).exec();
+  return vehicle?.user == userId ? vehicle : null;
 };
 
 const deleteVehicle = async (id) => {
