@@ -39,7 +39,7 @@ const VehicleSchema = new mongoose.Schema({
     inpection: {
       lastInspection: { type: Date },
       nextInspection: { type: Date, default: null },
-      inspectionInterval: { Number, default: 0 },
+      inspectionInterval: { Number, default: 12 }, //months
     },
     tires: {
       inUse: { Number, default: 0 },

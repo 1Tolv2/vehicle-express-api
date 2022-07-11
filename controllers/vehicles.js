@@ -19,7 +19,7 @@ const handleDeletionOfVehicle = async (req, res) => {
   const id = req.params.id;
   const vehicle = await deleteVehicle(id);
   vehicle.deletedCount
-    ? res.status(200).json({ message: "Vehicle successfully deleted" })
+    ? res.status(200).json({ message: "Vehicle successfully deleted." })
     : res.status(404).json({ error: ErrorMessages.FaultyId });
 };
 
