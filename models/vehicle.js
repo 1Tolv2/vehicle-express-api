@@ -68,8 +68,8 @@ const VehicleSchema = new mongoose.Schema({
   modelSpecification: {
     weight: { Number, default: 0 }, // kg/pounds
     engine: {
-      engineSize: { Number, default: 0 }, // cc
-      engineType: { type: String, default: null },
+      engineSize: { Number, default: 0 }, // liter/cc
+      engineType: { type: String, default: null }, // ex. B202
       fuelType: { type: String, default: null }, // gasoline, diesel, electric, gas, ethanol
       fuelCapacity: { Number, default: 0 }, // liters/gallons
       power: { Number, default: 0 }, // kW
@@ -79,7 +79,7 @@ const VehicleSchema = new mongoose.Schema({
       type: { type: String, default: null }, // manual, automatic
       gears: { Number, default: 0 },
     },
-    wheelDimentions: {
+    wheelDimensions: {
       tires: [{ type: String, default: null }],
     },
   },
@@ -97,11 +97,15 @@ const createVehicle = async (newVehicle) => {
   return vehicle;
 };
 
-const updateVehicle = async (userId, id, body) => {
-  const vehicle = await Vehicle.findByIdAndUpdate(id, body, {
+/*
+Bug:
+Incorrect length of id sent in will crash the server
+*/
+
+const updateVehicle = async (id, body) => {
+  return await Vehicle.findByIdAndUpdate(id, body, {
     new: true,
   }).exec();
-  return vehicle?.user == userId ? vehicle : null;
 };
 
 const deleteVehicle = async (id) => {
