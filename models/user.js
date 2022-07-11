@@ -39,14 +39,16 @@ const createUser = async (newUser) => {
 
 const verifyUser = async (username, password) => {
   const user = await User.login(username, password);
-  return {
-    _id: user._id,
-    username: user.username,
-    email: user.email,
-    name: user.name,
-    settings: user.settings,
-    vehicles: user.vehicles,
-  };
+  return user
+    ? {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        name: user.name,
+        settings: user.settings,
+        vehicles: user.vehicles,
+      }
+    : user;
 };
 
 const updateUser = (id, body) => {
