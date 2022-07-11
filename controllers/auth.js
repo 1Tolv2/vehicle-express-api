@@ -12,7 +12,6 @@ const requireLogin = (req, res, next) => {
 
 const registerNewUser = async (req, res) => {
   const { username, password } = req.body;
-  console.log("USER", username, password);
   if (!(username && password)) {
     res.json({ error: "Invalid data. Username and password is required." });
   } else {

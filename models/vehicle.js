@@ -97,11 +97,6 @@ const createVehicle = async (newVehicle) => {
   return vehicle;
 };
 
-/*
-Bug:
-Incorrect length of id sent in will crash the server
-*/
-
 const updateVehicle = async (id, body) => {
   return await Vehicle.findByIdAndUpdate(id, body, {
     new: true,
