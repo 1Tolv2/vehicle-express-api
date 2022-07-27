@@ -4,7 +4,7 @@ const TireSchema = new mongoose.Schema({
   purchased: { type: Date, default: null },
   daysUsed: { Number, default: 0 },
   tireType: { type: String, default: "allYearRound" }, // winter, summer, allYearRound
-  make: { type: String, default: null },
+  brand: { type: String, default: null },
   model: { type: String, default: null },
   tirePressure: { Number, default: 0 },
 });
@@ -23,7 +23,7 @@ const VehicleSchema = new mongoose.Schema({
   vehicleType: { type: Number, required: true }, // 1. Car, 2. Motorcycle
   mileage: { Number, default: 0 },
   inTrafic: { type: Boolean, default: true },
-  brand: { type: String, required: true },
+  brand: { type: String, required: true, default: "" },
   model: { type: String, default: null },
   modelYear: { Number, default: 0 },
   color: {
@@ -39,7 +39,7 @@ const VehicleSchema = new mongoose.Schema({
     inpection: {
       lastInspection: { type: Date },
       nextInspection: { type: Date, default: null },
-      inspectionInterval: { Number, default: 12 }, //months
+      inspectionInterval: { Number, default: 0 }, //months
     },
     tires: {
       inUse: { Number, default: 0 },

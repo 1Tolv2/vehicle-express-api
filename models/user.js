@@ -55,12 +55,12 @@ const updateUser = (id, body) => {
   return User.findByIdAndUpdate(id, body, { new: true }).exec();
 };
 
-const findUserById = (id) => {
-  return User.findById(id).select({ password: 0 }).exec();
-};
-
 const findAllUsers = () => {
   return User.find().select({ password: 0 }).exec();
+};
+
+const findUserById = (id) => {
+  return User.findById(id).select({ password: 0 }).exec();
 };
 
 const findUserByUsername = (username) => {

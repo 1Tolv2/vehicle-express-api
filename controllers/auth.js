@@ -12,8 +12,11 @@ const requireLogin = (req, res, next) => {
 
 const registerNewUser = async (req, res) => {
   const { username, password } = req.body;
+  console.log(req.body);
   if (!(username && password)) {
-    res.json({ error: "Invalid data. Username and password is required." });
+    res
+      .status(400)
+      .json({ error: "Invalid data. Username and password is required." });
   } else {
     if (await findUserByUsername(username)) {
       res
