@@ -1,4 +1,5 @@
 const { json } = require("express");
+const errorResponses = require("../utils/responseMessages");
 const {
   createVehicle,
   deleteVehicle,
@@ -6,13 +7,37 @@ const {
   findVehicleById,
   updateVehicle,
 } = require("../models/vehicle");
+const { requiredFieldsCheck } = require("./index");
+
+const { oops, missingReqFields } = errorResponses;
 
 const ErrorMessages = { FaultyId: "No vehicle found with the given id." };
 
 const handleNewVehicle = async (req, res) => {
-  const newVehicle = req.body;
-  const vehicle = await createVehicle({ ...newVehicle, user: req.user.userId });
-  res.status(201).json({ vehicle });
+  const missingFields = requiredFieldsCheck(req.body, [
+    "vehicleType",
+    "brand",
+    "color",
+  ]);
+  if (missingFields.length !== 0) {
+    res.status(missingReqFields.status);
+    res.json({
+      error: missingReqFields.message,
+      missingFields,
+    });
+  } else {
+    try {
+      const newVehicle = req.body;
+      const vehicle = await createVehicle({
+        ...newVehicle,
+        user: req.user.userId,
+      });
+      res.status(201).json({ vehicle });
+    } catch (err) {
+      console.log(err);
+      res.status(oops.status).json({ error: oops.message });
+    }
+  }
 };
 
 const handleDeletionOfVehicle = async (req, res) => {
@@ -44,8 +69,6 @@ const updateObject = (object, value) => {
 
 const editVehicle = async (req, res) => {
   const { user, params, body } = req;
-  params.id !== 24 &&
-    res.status(400).json({ error: `${ErrorMessages.FaultyId} Id too short.` });
   const vehicle = (await findVehicleById(params.id)).toObject();
   if (vehicle?.user != user.userId) {
     res.status(403).json({ error: ErrorMessages.FaultyId });
