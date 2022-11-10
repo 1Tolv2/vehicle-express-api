@@ -47,7 +47,24 @@ const getCurrentUsersNotes = async (req, res) => {
   }
 };
 
-const getVehicleNotes = async (req, res) => {};
+const getVehicleNotes = async (req, res) => {
+  const missingFields = requiredFieldsCheck(req.body, ["vehicleId"]);
+  if (missingFields.length !== 0) {
+    res.status(missingReqFields.status);
+    res.json({
+      error: missingReqFields.message,
+      missingFields,
+    });
+  } else {
+    try {
+      const notes = await findNotesByVehicle(req.params.id);
+      res.status(200).json({ notes });
+    } catch (err) {
+      console.log(err);
+      res.status(oops.status).json({ error: oops.message });
+    }
+  }
+};
 
 const editNote = async (req, res) => {};
 
