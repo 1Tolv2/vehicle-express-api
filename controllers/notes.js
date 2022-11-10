@@ -82,7 +82,7 @@ const handleDeletionNote = async (req, res) => {
   const note = await deleteNote(id);
   note.deletedCount
     ? res.status(200).json({ message: "Note successfully deleted." })
-    : res.status(404).json({ error: "Note" + notFound.message });
+    : res.status(404).json({ error: "Note " + notFound.message });
 };
 
 module.exports = {
