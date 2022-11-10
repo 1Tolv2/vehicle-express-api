@@ -84,16 +84,13 @@ const VehicleSchema = new mongoose.Schema({
       tires: [{ type: String, default: null }],
     },
   },
+  notes: [{ type: String, createdAt: new Date() }],
 });
 
 const Vehicle = mongoose.model("Vehicle", VehicleSchema);
 
 const createVehicle = async (newVehicle) => {
-  try {
-    var vehicle = new Vehicle(newVehicle);
-  } catch (e) {
-    return;
-  }
+  var vehicle = new Vehicle(newVehicle);
   await vehicle.save();
   return vehicle;
 };

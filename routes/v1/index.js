@@ -5,5 +5,6 @@ const router = express();
 router.use(handleToken);
 router.use("/users", require("./users"));
 router.use("/vehicles", requireLogin, require("./vehicles"));
+router.use("/notes", requireLogin, require("./notes"));
 
 module.exports = router;
