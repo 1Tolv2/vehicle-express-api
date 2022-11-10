@@ -1,5 +1,27 @@
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/1Tolv2/weather-app">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="Logo" width="80" height="80">
+  </a>
+
+<h3 align="center">Vehicle REST API</h3>
+
+  <p align="center">
+    Express.js server
+    <br />
+    <a href="https://github.com/1Tolv2/vehicle-api"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/1Tolv2/vehicle-api/issues">Propose Feature</a>
+	  ·
+    <a href="https://github.com/1Tolv2/vehicle-api/issues">Report Bug</a>
+  </p>
+</div>
+
+
 # Intro
-This a REST API, it returns JSON data about a users added vehicles such as make and model and also more specific data such as engine and tire specifications.
+This is a REST API, it returns JSON data about a users added vehicles such as make and model and also more specific data such as engine and tire specifications.
 
 The intended use for the the API is to be used with an app that allows a user to put in data about their vehicle to keep the information organized and to be used as a tool to keep up with the maintenance. 
 
