@@ -64,6 +64,7 @@ const findUserById = (id) => {
 };
 
 const findUserByUsername = (username) => {
+  console.log("FINDING");
   return User.findOne({ username }).select({ password: 0 }).exec();
 };
 

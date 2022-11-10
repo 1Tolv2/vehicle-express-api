@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { authorizeUser } = require("../models/user");
-
 const errorResponses = require("../utils/responseMessages");
+const { requiredFieldsCheck } = require("./index");
+
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const { unauthorized, oops, missingReqFields } = errorResponses;
