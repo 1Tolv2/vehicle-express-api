@@ -3,10 +3,7 @@ const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, lowercase: true, unique: true },
-  name: { type: String, default: "" },
   password: { type: String, required: true },
-  email: { type: String, default: "" },
-  // vehicles: [{ type: mongoose.Schema.Types.ObjectId, ref: "Vehicle" }],
   settings: {
     language: { type: String, default: "en" }, // en, sv
     darkmode: { type: Boolean, default: false },
@@ -43,10 +40,7 @@ const authorizeUser = async (username, password) => {
     ? {
         _id: user._id,
         username: user.username,
-        email: user.email,
-        name: user.name,
         settings: user.settings,
-        vehicles: user.vehicles,
       }
     : null;
 };
@@ -64,7 +58,6 @@ const findUserById = (id) => {
 };
 
 const findUserByUsername = (username) => {
-  console.log("FINDING");
   return User.findOne({ username }).select({ password: 0 }).exec();
 };
 
