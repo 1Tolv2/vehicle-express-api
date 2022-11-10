@@ -37,7 +37,7 @@ const createUser = async (newUser) => {
   return user;
 };
 
-const verifyUser = async (username, password) => {
+const authorizeUser = async (username, password) => {
   const user = await User.login(username, password);
   return user
     ? {
@@ -69,7 +69,7 @@ const findUserByUsername = (username) => {
 
 module.exports = {
   createUser,
-  verifyUser,
+  authorizeUser,
   updateUser,
   findUserById,
   findAllUsers,
