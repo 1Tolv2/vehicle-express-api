@@ -29,7 +29,7 @@ const findNoteById = (id) => {
   return Note.findById(id).exec();
 };
 
-const editNote = (id, body) => {
+const updateNote = (id, body) => {
   return Note.findByIdAndUpdate(id, body, { new: true }).exec();
 };
 
@@ -42,6 +42,6 @@ module.exports = {
   findNotesByUser,
   findNotesByVehicle,
   findNoteById,
-  editNote,
+  updateNote,
   deleteNote,
 };
