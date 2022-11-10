@@ -10,29 +10,7 @@ const requireLogin = (req, res, next) => {
   req.user ? next() : res.status(401).json({ error: "Unauthorized" });
 };
 
-const registerNewUser = async (req, res) => {
-  const { username, password } = req.body;
-  if (!(username && password)) {
-    res
-      .status(400)
-      .json({ error: "Invalid data. Username and password is required." });
-  } else {
-    if (await findUserByUsername(username)) {
-      res
-        .status(400)
-        .json({ error: "User already exists, username must be unique" });
-    } else {
-      const user = await createUser({
-        username: username.toLowerCase(),
-        password,
-      });
-
-      res.json({ username: user.username });
-    }
-  }
-};
-
-const logInUser = async (req, res) => {
+const loginUser = async (req, res) => {
   const { username, password } = req.body;
   console.log("USER", username);
   const user = await verifyUser(username.toLowerCase(), password);
@@ -49,4 +27,4 @@ const logInUser = async (req, res) => {
   }
 };
 
-module.exports = { requireLogin, registerNewUser, logInUser };
+module.exports = { requireLogin, loginUser };
