@@ -3,16 +3,16 @@ const mongoose = require("mongoose");
 const TireSchema = new mongoose.Schema({
   purchased: { type: Date, default: null },
   daysUsed: { Number, default: 0 },
-  tireType: { type: String, default: "allYearRound" }, // winter, summer, allYearRound
   brand: { type: String, default: null },
   model: { type: String, default: null },
+  size: { type: String, default: null },
   tirePressure: { Number, default: 0 },
 });
 
 const LiquidSchema = new mongoose.Schema({
   brand: { type: String, default: null },
   model: { type: String, default: null },
-  viscocity: { type: String, default: null },
+  viscosity: { type: String, default: null },
   amount: { Number, default: 0 }, // liters/gallons
   lastChanged: { type: Date, default: null },
 });
@@ -46,6 +46,7 @@ const VehicleSchema = new mongoose.Schema({
       tireSet: [
         {
           tireSetId: { Number, default: 0 },
+          tireType: { type: String, default: "allYearRound" }, // winter, summer, allYearRound
           tires: [TireSchema],
         },
       ],
@@ -69,7 +70,7 @@ const VehicleSchema = new mongoose.Schema({
     weight: { Number, default: 0 }, // kg/pounds
     engine: {
       engineSize: { Number, default: 0 }, // liter/cc
-      engineType: { type: String, default: null }, // ex. B202
+      engineModel: { type: String, default: null }, // ex. B202
       fuelType: { type: String, default: null }, // gasoline, diesel, electric, gas, ethanol
       fuelCapacity: { Number, default: 0 }, // liters/gallons
       power: { Number, default: 0 }, // kW

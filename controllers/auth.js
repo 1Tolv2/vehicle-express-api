@@ -12,7 +12,6 @@ const requireLogin = (req, res, next) => {
 
 const registerNewUser = async (req, res) => {
   const { username, password } = req.body;
-  console.log(req.body);
   if (!(username && password)) {
     res
       .status(400)
@@ -35,6 +34,7 @@ const registerNewUser = async (req, res) => {
 
 const logInUser = async (req, res) => {
   const { username, password } = req.body;
+  console.log("USER", username);
   const user = await verifyUser(username.toLowerCase(), password);
 
   if (user) {

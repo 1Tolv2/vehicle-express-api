@@ -12,7 +12,6 @@ app.use(express.json());
 
 app.use(async (req, res, next) => {
   const authHeader = req.header("Authorization");
-
   if (authHeader && authHeader.split(" ")[0] === "Bearer") {
     const token = authHeader.split(" ")[1];
     try {

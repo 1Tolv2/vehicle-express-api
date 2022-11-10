@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, default: "" },
   password: { type: String, required: true },
   email: { type: String, default: "" },
-  vehicles: [{ type: mongoose.Schema.Types.ObjectId, ref: "Vehicle" }],
+  // vehicles: [{ type: mongoose.Schema.Types.ObjectId, ref: "Vehicle" }],
   settings: {
     language: { type: String, default: "en" }, // en, sv
     darkmode: { type: Boolean, default: false },

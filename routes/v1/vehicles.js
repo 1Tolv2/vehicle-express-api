@@ -1,12 +1,11 @@
 const express = require("express");
 const v = require("../../controllers/vehicles");
-const { requireLogin } = require("../../controllers/auth");
 const router = express();
 
-router.get("/", requireLogin, v.getUsersVehicles);
-router.post("/", requireLogin, v.handleNewVehicle);
-router.get("/:id", requireLogin, v.getVehicle);
-router.put("/:id", requireLogin, v.editVehicle);
-router.delete("/:id", requireLogin, v.handleDeletionOfVehicle);
+router.get("/", v.getUsersVehicles);
+router.post("/", v.handleNewVehicle);
+router.get("/:id", v.getVehicle);
+router.put("/:id", v.editVehicle);
+router.delete("/:id", v.handleDeletionOfVehicle);
 
 module.exports = router;
