@@ -67,29 +67,23 @@ const updateObject = (object, value) => {
   return tempObject;
 };
 
+const loopThroughObject = (object, array) => {
+  Object.entries(object).map(([key, value]) => {
+    if (typeof value === "object" && value !== null) {
+      loopThroughObject(value, array);
+    } else {
+    }
+  });
+};
+
 const editVehicle = async (req, res) => {
   const { user, params, body } = req;
-  const vehicle = (await findVehicleById(params.id)).toObject();
+  console.log(body);
+  const vehicle = await findVehicleById(params.id);
   if (vehicle?.user != user.userId) {
     res.status(403).json({ error: ErrorMessages.FaultyId });
   } else {
-    const updateData = {};
-    for (const key in body) {
-      if (vehicle.hasOwnProperty(key)) {
-        if (
-          key === "color" ||
-          key === "specifications" ||
-          key === "modelSpecification"
-        ) {
-          updateData[key] = updateObject(vehicle[key], body[key]);
-        } else {
-          updateData[key] = body[key];
-        }
-      }
-    }
-    res
-      .status(200)
-      .json({ vehicle: await updateVehicle(params.id, updateData) });
+    res.status(200).json({ vehicle: await updateVehicle(params.id, body) });
   }
 };
 

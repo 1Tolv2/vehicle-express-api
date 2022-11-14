@@ -2,30 +2,30 @@ const mongoose = require("mongoose");
 
 const TireSchema = new mongoose.Schema({
   purchased: { type: Date, default: null },
-  daysUsed: { Number, default: 0 },
+  daysUsed: { type: Number, default: 0 },
   brand: { type: String, default: null },
   model: { type: String, default: null },
   size: { type: String, default: null },
-  tirePressure: { Number, default: 0 },
+  tirePressure: { type: Number, default: 0 },
 });
 
 const LiquidSchema = new mongoose.Schema({
   brand: { type: String, default: null },
   model: { type: String, default: null },
   viscosity: { type: String, default: null },
-  amount: { Number, default: 0 }, // liters/gallons
+  amount: { type: Number, default: 0 }, // liters/gallons
   lastChanged: { type: Date, default: null },
 });
 
 const VehicleSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  registrationNumber: { type: String },
+  registrationNumber: { type: String, default: "" },
   vehicleType: { type: Number, required: true }, // 1. Car, 2. Motorcycle
-  mileage: { Number, default: 0 },
+  mileage: { type: Number, default: 0 },
   inTrafic: { type: Boolean, default: true },
   brand: { type: String, required: true, default: "" },
   model: { type: String, default: null },
-  modelYear: { Number, default: 0 },
+  modelYear: { type: Number, default: 0 },
   color: {
     primaryColor: { type: String, default: null, required: true },
     secondaryColor: { type: String, default: null },
@@ -36,13 +36,13 @@ const VehicleSchema = new mongoose.Schema({
       company: { type: String, default: null },
       type: { type: String, default: null }, // trafic, half, whole
     },
-    inpection: {
-      lastInspection: { type: Date },
+    inspection: {
+      lastInspection: { type: Date, default: new Date() },
       nextInspection: { type: Date, default: null },
-      inspectionInterval: { Number, default: 0 }, //months
+      inspectionInterval: { type: Number, default: 12 }, //months
     },
     tires: {
-      inUse: { Number, default: 0 },
+      inUse: { type: Number, default: 0 },
       tireSet: [
         {
           tireSetId: { Number, default: 0 },
@@ -67,18 +67,18 @@ const VehicleSchema = new mongoose.Schema({
     },
   },
   modelSpecification: {
-    weight: { Number, default: 0 }, // kg/pounds
+    weight: { type: Number, default: 0 }, // kg/pounds
     engine: {
-      engineSize: { Number, default: 0 }, // liter/cc
+      engineSize: { type: Number, default: 0 }, // liter/cc
       engineModel: { type: String, default: null }, // ex. B202
       fuelType: { type: String, default: null }, // gasoline, diesel, electric, gas, ethanol
-      fuelCapacity: { Number, default: 0 }, // liters/gallons
-      power: { Number, default: 0 }, // kW
-      horsePower: { Number, default: 0 }, // hp
+      fuelCapacity: { type: Number, default: 0 }, // liters/gallons
+      power: { type: Number, default: 0 }, // kW
+      horsePower: { type: Number, default: 0 }, // hp
     },
     gearBox: {
       type: { type: String, default: null }, // manual, automatic
-      gears: { Number, default: 0 },
+      gears: { type: Number, default: 0 },
     },
     wheelDimensions: {
       tires: [{ type: String, default: null }],
