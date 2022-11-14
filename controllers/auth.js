@@ -19,12 +19,10 @@ const handleToken = async (req, res, next) => {
     const token = authHeader.split(" ")[1];
     try {
       req.user = jwt.verify(token, process.env.JWT_SECRET);
-    } catch (error) {
-      return error.message === "jwt expired"
-        ? res.status(401).json({ error: "Token expired" })
-        : error.message === "invalid token"
-        ? res.status(401).json({ error: "Invalid token" })
-        : res.status(400).json({ error: "Token error" });
+    } catch (err) {
+      if (err.message === "invalid token") {
+        res.status(400).json({ error: "Invalid token" });
+      }
     }
   }
   next();
