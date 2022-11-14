@@ -20,7 +20,7 @@ const handleNewUser = async (req, res) => {
   } else {
     try {
       const username = req.body.username.toLowerCase();
-      const { password } = req.body;
+      const { password, settings } = req.body;
 
       if (await findUserByUsername(username)) {
         res
@@ -30,9 +30,18 @@ const handleNewUser = async (req, res) => {
         const user = await createUser({
           username: username,
           password,
+          settings: {
+            language: settings.hasOwnProperty("language")
+              ? settings?.language
+              : "en",
+            units: settings.hasOwnProperty("units")
+              ? settings?.units
+              : "metric",
+            darkMode: false,
+          },
         });
 
-        res.json({ username: user.username });
+        res.status(201).json({ username: user.username });
       }
     } catch (err) {
       console.log(err);
