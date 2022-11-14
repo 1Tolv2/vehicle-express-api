@@ -102,13 +102,15 @@ const updateVehicle = async (id, body) => {
 };
 
 const deleteVehicle = async (id) => {
-  return Vehicle.deleteOne({ _id: mongoose.Types.ObjectId(id) });
+  return Vehicle.deleteOne({ _id: mongoose.Types.ObjectId(id) }).exec();
 };
-const findAllVehiclesByUser = async (id) => {
-  return Vehicle.find({ user: mongoose.Types.ObjectId(id) });
+const findAllVehiclesByUser = async (id, sort) => {
+  return Vehicle.find({ user: mongoose.Types.ObjectId(id) })
+    .sort(sort)
+    .exec();
 };
 const findVehicleById = async (id) => {
-  return Vehicle.findById(id);
+  return Vehicle.findById(id).exec();
 };
 
 module.exports = {

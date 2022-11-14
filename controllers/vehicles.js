@@ -49,7 +49,9 @@ const handleDeletionOfVehicle = async (req, res) => {
 };
 
 const getUsersVehicles = async (req, res) => {
-  const vehicles = await findAllVehiclesByUser(req.user.userId);
+  const vehicles = await findAllVehiclesByUser(req.user.userId, {
+    [req.query.sort]: 1,
+  });
   res.status(200).json({ vehicles });
 };
 
@@ -78,7 +80,6 @@ const loopThroughObject = (object, array) => {
 
 const editVehicle = async (req, res) => {
   const { user, params, body } = req;
-  console.log(body);
   const vehicle = await findVehicleById(params.id);
   if (vehicle?.user != user.userId) {
     res.status(403).json({ error: ErrorMessages.FaultyId });
