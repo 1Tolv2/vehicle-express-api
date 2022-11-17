@@ -19,10 +19,11 @@ const LiquidSchema = new mongoose.Schema({
 
 const VehicleSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  nickname: { type: String, default: "" },
   registrationNumber: { type: String, default: "" },
   vehicleType: { type: Number, required: true }, // 1. Car, 2. Motorcycle
   mileage: { type: Number, default: 0 },
-  inTrafic: { type: Boolean, default: true },
+  inTraffic: { type: Boolean, default: true },
   brand: { type: String, required: true, default: "" },
   model: { type: String, default: null },
   modelYear: { type: Number, default: 0 },
@@ -69,12 +70,12 @@ const VehicleSchema = new mongoose.Schema({
   modelSpecification: {
     weight: { type: Number, default: 0 }, // kg/pounds
     engine: {
-      engineSize: { type: Number, default: 0 }, // liter/cc
-      engineModel: { type: String, default: null }, // ex. B202
+      size: { type: Number, default: 0 }, // liter/cc
+      model: { type: String, default: null }, // ex. B202
       fuelType: { type: String, default: null }, // gasoline, diesel, electric, gas, ethanol
       fuelCapacity: { type: Number, default: 0 }, // liters/gallons
-      power: { type: Number, default: 0 }, // kW
-      horsePower: { type: Number, default: 0 }, // hp
+      powerKW: { type: Number, default: 0 }, // kW
+      powerHP: { type: Number, default: 0 }, // hp
     },
     gearBox: {
       type: { type: String, default: null }, // manual, automatic
@@ -106,7 +107,7 @@ const deleteVehicle = async (id) => {
 };
 const findAllVehiclesByUser = async (id, sort) => {
   return Vehicle.find({ user: mongoose.Types.ObjectId(id) })
-    .sort(sort)
+    .sort({ brand: 1, model: 1, ...sort })
     .exec();
 };
 const findVehicleById = async (id) => {
