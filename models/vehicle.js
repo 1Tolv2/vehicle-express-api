@@ -28,8 +28,8 @@ const VehicleSchema = new mongoose.Schema({
   model: { type: String, default: null },
   modelYear: { type: Number, default: 0 },
   color: {
-    primaryColor: { type: String, default: null, required: true },
-    secondaryColor: { type: String, default: null },
+    primaryColor: { type: String, default: "" },
+    secondaryColor: { type: String, default: "" },
   },
   specifications: {
     insurance: {
