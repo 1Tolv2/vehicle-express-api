@@ -74,6 +74,7 @@ const VehicleSchema = new mongoose.Schema({
       model: { type: String, default: null }, // ex. B202
       fuelType: { type: String, default: null }, // gasoline, diesel, electric, gas, ethanol
       fuelCapacity: { type: Number, default: 0 }, // liters/gallons
+      fuelConsumption: { type: Number, default: 0 }, // liters/100km/miles
       powerKW: { type: Number, default: 0 }, // kW
       powerHP: { type: Number, default: 0 }, // hp
     },

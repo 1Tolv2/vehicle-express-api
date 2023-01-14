@@ -31,7 +31,6 @@ const handleNewNote = async (req, res) => {
       note = await createNote(newNote);
       res.status(201).json({ note });
     } catch (err) {
-      console.log(err);
       res.status(oops.status).json({ error: oops.message });
     }
   }
@@ -42,7 +41,6 @@ const getCurrentUsersNotes = async (req, res) => {
     const notes = await findNotesByUser(req.user.userId);
     res.status(200).json({ notes });
   } catch (err) {
-    console.log(err);
     res.status(oops.status).json({ error: oops.message });
   }
 };
@@ -52,7 +50,6 @@ const getVehicleNotes = async (req, res) => {
     const notes = await findNotesByVehicle(req.params.id);
     res.status(200).json({ notes });
   } catch (err) {
-    console.log(err);
     res.status(oops.status).json({ error: oops.message });
   }
 };

@@ -37,14 +37,13 @@ const handleNewUser = async (req, res) => {
             units: settings.hasOwnProperty("units")
               ? settings?.units
               : "metric",
-            darkMode: false,
+            darkmode: false,
           },
         });
 
         res.status(201).json({ username: user.username });
       }
     } catch (err) {
-      console.log(err);
       res.status(oops.status).json({ error: oops.message });
     }
   }
@@ -63,14 +62,14 @@ const getCurrentUser = async (req, res) => {
 const editCurrentUser = async (req, res) => {
   const id = req.user.userId;
   const body = req.body;
-  const editables = ["username", "language", "darkMode", "units"];
+  const editables = ["username", "language", "darkmode", "units"];
   let edits = {};
   for (let i = 0; i < editables.length; i++) {
     if (body.hasOwnProperty(editables[i])) {
       if (
         editables[i] === "language" ||
         editables[i] === "units" ||
-        editables[i] === "darkMode"
+        editables[i] === "darkmode"
       ) {
         edits["settings." + editables[i]] = body[editables[i]];
       } else if (editables[i] === "username") {

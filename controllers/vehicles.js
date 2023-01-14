@@ -34,7 +34,6 @@ const handleNewVehicle = async (req, res) => {
       });
       res.status(201).json({ vehicle });
     } catch (err) {
-      console.log(err);
       res.status(oops.status).json({ error: oops.message });
     }
   }
@@ -80,6 +79,7 @@ const loopThroughObject = (object, array) => {
 
 const editVehicle = async (req, res) => {
   const { user, params, body } = req;
+
   const vehicle = await findVehicleById(params.id);
   if (vehicle?.user != user.userId) {
     res.status(403).json({ error: ErrorMessages.FaultyId });
